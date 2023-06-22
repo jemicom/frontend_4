@@ -24,10 +24,16 @@ server.on('request', async (req, res)=>{
     }
     
     try{
-        //delete : localhost:3000/first_name=kim 
-        //delete : localhost:3000/name
-        //브라우저 <-> 서버
-        if( req.url.includes('name') && req.method === 'DELETE'){
+
+        if( req.url === '/delete' && req.method === 'GET'){
+            const data = await fs.readFileSync( path.join(__dirname, 'views', 'delete.html'));
+            res.writeHead( 200, { 'Content-type' : contentType});
+            res.write(data);
+     
+            //delete : localhost:3000/first_name=kim 
+            //delete : localhost:3000/name
+            //브라우저 <-> 서버
+        }else if( req.url.includes('name') && req.method === 'DELETE'){
             let body = '';
             req.on('data', (chunk)=>{
                 body = chunk.toString();

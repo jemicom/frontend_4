@@ -28,7 +28,14 @@ server.on('request', async (req, res)=>{
         //patch : localhost:3000/first_name=kim  
         //put 전체 데이타 수정, patch 일부 데이터 수정할때 
         //브라우저 <-> 서버
-        if( req.url.includes('name') && req.method === 'PUT'){
+        if( req.url === '/put' && req.method === 'GET'){
+            const data = await fs.readFileSync( path.join(__dirname, 'views', 'put.html'));
+            res.writeHead( 200, { 'Content-type' : contentType});
+            res.write(data);
+      
+            //delete : localhost:3000/name
+            //브라우저 <-> 서버
+        }else if( req.url.includes('name') && req.method === 'PUT'){
             let body = '';
             req.on('data', (chunk)=>{
                 body = chunk.toString();
